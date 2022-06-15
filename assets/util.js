@@ -37,15 +37,16 @@ function makeOptions(options) {
         'wasm-blend': 'BlendRenderer',
         'js-blend': 'JSRenderer',
         'lossy': 'LossyRenderer'
+        undefined: 'DefaultRenderer'
     };
     var param = new URLSearchParams(window.location.search);
 
     var renderMode = param.get('renderMode');
 
-    if (!renderMode in NAMES) {
+    if (renderMode === null || !(renderMode in NAMES)) {
         renderMode = options.renderMode;
-        if (!renderMode in NAMES)
-            renderMode = 'wasm-blend';
+        if (!(renderMode in NAMES))
+            renderMode = undefined;
     }
 
     // Set  Name if required
